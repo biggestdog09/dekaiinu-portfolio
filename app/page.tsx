@@ -51,7 +51,7 @@ export default function Home() {
         const progress = Math.min((currentScrollY - threshold) / fadeLength, 1);
         
         const startR = 0, startG = 166, startB = 244;
-        const endR = 255, endG = 105, endB = 0; // #ff6900
+        const endR = 255, endG = 137, endB = 4; // #ff8904
         
         const r = Math.round(startR + (endR - startR) * progress);
         const g = Math.round(startG + (endG - startG) * progress);
@@ -83,16 +83,16 @@ export default function Home() {
       <div 
         className="absolute inset-0 z-0 pointer-events-none mix-blend-overlay opacity-0 transition-opacity duration-500"
         style={{
-            opacity: scrollY > 1500 ? Math.min((scrollY - 1500) / 1000, 0.6) : 0,
-            background: 'linear-gradient(to bottom, transparent 0%, #ff4500 100%)'
+            opacity: scrollY > 1500 ? Math.min((scrollY - 1500) / 1000, 0.9) : 0,
+            background: 'linear-gradient(to bottom, transparent 0%, #ff8904 100%)'
         }}
       />
 
-      <div className="relative z-50">
+      <div className="fixed top-0 left-0 w-full z-50">
         <Header />
       </div>
 
-      <main className="relative flex flex-col items-center justify-start w-full mx-auto px-4 z-10">
+      <main className="relative flex flex-col items-center justify-start w-full mx-auto px-4 z-10 pt-16">
         
         {/* Hero Section */}
         <div className="relative w-full max-w-[1470px] min-h-[calc(100vh-64px)] flex flex-col items-center justify-center">
