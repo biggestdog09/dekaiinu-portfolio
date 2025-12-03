@@ -3,67 +3,66 @@ import Header from "./components/Header";
 
 export default function Home() {
   return (
-    <div className="flex min-h-screen flex-col bg-zinc-50 font-sans dark:bg-black">
-      <Header />
-      <div className="flex flex-1 items-center justify-center">
-      <main className="flex min-h-screen w-full max-w-3xl flex-col items-center justify-between py-32 px-16 bg-white dark:bg-black sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={100}
-          height={20}
-          priority
-        />
-        <div className="flex flex-col items-center gap-6 text-center sm:items-start sm:text-left">
-          <h1 className="max-w-xs text-3xl font-semibold leading-10 tracking-tight text-black dark:text-zinc-50">
-            To get started, edit the page.tsx file.
-          </h1>
-          <p className="max-w-md text-lg leading-8 text-zinc-600 dark:text-zinc-400">
-            Looking for a starting point or more instructions? Head over to{" "}
-            <a
-              href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Templates
-            </a>{" "}
-            or the{" "}
-            <a
-              href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Learning
-            </a>{" "}
-            center.
-          </p>
-        </div>
-        <div className="flex flex-col gap-4 text-base font-medium sm:flex-row">
-          <a
-            className="flex h-12 w-full items-center justify-center gap-2 rounded-full bg-foreground px-5 text-background transition-colors hover:bg-[#383838] dark:hover:bg-[#ccc] md:w-[158px]"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={16}
-              height={16}
-            />
-            Deploy Now
-          </a>
-          <a
-            className="flex h-12 w-full items-center justify-center rounded-full border border-solid border-black/[.08] px-5 transition-colors hover:border-transparent hover:bg-black/[.04] dark:border-white/[.145] dark:hover:bg-[#1a1a1a] md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Documentation
-          </a>
-        </div>
-      </main>
+    <div className="min-h-screen bg-gradient-to-b from-[#00a6f4] via-[#00bcff] to-[#b8e6fe] overflow-hidden relative font-pixel text-[#364153]">
+      <div className="absolute inset-0 z-0">
+         {/* 背景グラデーション (Tailwindクラスで対応済みだが、Figmaの指示通りに微調整が必要ならここ) */}
       </div>
+
+      <Header />
+
+      <main className="relative flex min-h-[calc(100vh-64px)] flex-col items-center justify-center w-full max-w-[1470px] mx-auto px-4">
+        
+        {/* Logo Section */}
+        <div className="relative z-10 flex flex-col items-center justify-center w-full">
+          <div className="relative w-[300px] h-[100px] md:w-[600px] md:h-[200px] animate-float">
+            <Image
+              src="/assets/images/logo_dekaiinu.png"
+              alt="DekaiInu"
+              fill
+              className="object-contain"
+              priority
+            />
+          </div>
+          
+          <h1 className="mt-8 text-2xl md:text-4xl tracking-widest opacity-80">
+            Welcome
+          </h1>
+        </div>
+
+        {/* Clouds */}
+        {/* Cloud 1 - Left Top */}
+        <div className="absolute top-[12%] left-[8%] w-24 h-24 md:w-32 md:h-32 opacity-70 animate-float-delayed pointer-events-none">
+          <Image src="/assets/images/cloud_1.png" alt="cloud" fill className="object-contain" />
+        </div>
+
+        {/* Cloud 2 - Right Top */}
+        <div className="absolute top-[15%] right-[10%] w-32 h-32 md:w-40 md:h-40 opacity-60 animate-float pointer-events-none">
+          <Image src="/assets/images/cloud_2.png" alt="cloud" fill className="object-contain" />
+        </div>
+
+        {/* Cloud 3 - Left Bottom */}
+        <div className="absolute bottom-[15%] left-[10%] w-28 h-28 md:w-36 md:h-36 opacity-50 animate-float pointer-events-none">
+          <Image src="/assets/images/cloud_3.png" alt="cloud" fill className="object-contain" />
+        </div>
+
+        {/* Cloud 4 - Right Bottom */}
+        <div className="absolute bottom-[18%] right-[5%] w-32 h-32 md:w-44 md:h-44 opacity-60 animate-float-delayed pointer-events-none">
+          <Image src="/assets/images/cloud_2.png" alt="cloud" fill className="object-contain" />
+        </div>
+        
+        {/* Cloud 5 - Middle Left (Logo side) */}
+        <div className="absolute top-[38%] left-[4%] w-20 h-20 md:w-28 md:h-28 opacity-55 animate-float pointer-events-none">
+           <Image src="/assets/images/cloud_1.png" alt="cloud" fill className="object-contain" />
+        </div>
+
+
+        {/* Scroll Down Indicator */}
+        <div className="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 z-10">
+          <span className="text-sm tracking-widest text-[#0084d1]">Scroll Down</span>
+          <div className="w-0.5 h-8 bg-[#0084d1]" />
+        </div>
+
+      </main>
     </div>
   );
 }
