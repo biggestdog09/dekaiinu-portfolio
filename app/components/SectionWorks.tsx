@@ -1,55 +1,48 @@
-import Image from "next/image";
+import SectionTitle from "./ui/SectionTitle";
+import PixelButton from "./ui/PixelButton";
+import WorkCard from "./cards/WorkCard";
+
+const WORKS_DATA = [
+  {
+    id: 1,
+    title: "UI Design Project",
+    description: "ミニマルで使いやすいインターフェースデザイン",
+    gradient: "from-gray-700 to-gray-900"
+  },
+  {
+    id: 2,
+    title: "Web Development",
+    description: "クリエイティブなウェブサイト制作",
+    gradient: "from-blue-600 to-indigo-800"
+  },
+  {
+    id: 3,
+    title: "Game Design",
+    description: "レトロゲーム風UIデザイン",
+    gradient: "from-green-600 to-teal-800"
+  }
+];
 
 export default function SectionWorks() {
   return (
     <section className="w-full max-w-[1152px] mx-auto py-20 relative z-10">
-      {/* Title */}
-      <div className="flex flex-col items-center mb-12">
-        <h2 className="text-[#0084d1] text-2xl font-pixel mb-4 text-center">Works</h2>
-        <div className="w-24 h-1 bg-[#00bcff]" />
-      </div>
+      <SectionTitle title="Works" />
 
-      {/* Works Grid */}
       <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-12">
-        {/* Work 1 */}
-        <div className="bg-white border-4 border-[#333333] shadow-[4px_4px_0px_0px_#5a9fbf] group hover:-translate-y-1 transition-transform">
-          <div className="h-48 bg-gray-200 relative overflow-hidden">
-             <div className="w-full h-full bg-gradient-to-tr from-gray-700 to-gray-900" />
-          </div>
-          <div className="p-6">
-            <h3 className="text-[#0069a8] text-lg font-pixel mb-4 min-h-[40px]">UI Design Project</h3>
-            <p className="text-[#4a5565] text-xs font-medium">ミニマルで使いやすいインターフェースデザイン</p>
-          </div>
-        </div>
-
-        {/* Work 2 */}
-        <div className="bg-white border-4 border-[#333333] shadow-[4px_4px_0px_0px_#5a9fbf] group hover:-translate-y-1 transition-transform">
-          <div className="h-48 bg-gray-200 relative overflow-hidden">
-             <div className="w-full h-full bg-gradient-to-tr from-blue-600 to-indigo-800" />
-          </div>
-          <div className="p-6">
-            <h3 className="text-[#0069a8] text-lg font-pixel mb-4 min-h-[40px]">Web Development</h3>
-            <p className="text-[#4a5565] text-xs font-medium">クリエイティブなウェブサイト制作</p>
-          </div>
-        </div>
-
-        {/* Work 3 */}
-        <div className="bg-white border-4 border-[#333333] shadow-[4px_4px_0px_0px_#5a9fbf] group hover:-translate-y-1 transition-transform">
-          <div className="h-48 bg-gray-200 relative overflow-hidden">
-             <div className="w-full h-full bg-gradient-to-tr from-green-600 to-teal-800" />
-          </div>
-          <div className="p-6">
-            <h3 className="text-[#0069a8] text-lg font-pixel mb-4 min-h-[40px]">Game Design</h3>
-            <p className="text-[#4a5565] text-xs font-medium">レトロゲーム風UIデザイン</p>
-          </div>
-        </div>
+        {WORKS_DATA.map((work) => (
+          <WorkCard
+            key={work.id}
+            title={work.title}
+            description={work.description}
+            gradient={work.gradient}
+          />
+        ))}
       </div>
 
-      {/* View All Button */}
       <div className="flex justify-center">
-        <button className="bg-white border-4 border-[#333333] py-4 px-8 shadow-[4px_4px_0px_0px_#5a9fbf] hover:translate-y-1 hover:shadow-none transition-all active:translate-y-1">
-          <span className="text-[#0084d1] text-xs font-pixel">View All Projects →</span>
-        </button>
+        <PixelButton>
+          View All Projects →
+        </PixelButton>
       </div>
 
       {/* Contact Banner */}
@@ -69,9 +62,11 @@ export default function SectionWorks() {
               お気軽にご連絡ください
             </p>
             
-            <button className="mt-8 bg-[#00a6f4] border-4 border-[#333333] py-4 px-8 shadow-[4px_4px_0px_0px_#5a9fbf] hover:translate-y-1 hover:shadow-none transition-all active:translate-y-1">
-              <span className="text-white text-xs font-pixel">Contact Me</span>
-            </button>
+            <div className="mt-8 flex justify-center">
+              <PixelButton variant="blue">
+                Contact Me
+              </PixelButton>
+            </div>
           </div>
         </div>
       </div>
@@ -79,4 +74,3 @@ export default function SectionWorks() {
     </section>
   );
 }
-
