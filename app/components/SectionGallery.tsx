@@ -14,7 +14,7 @@ const GALLERY_ITEMS = [
 export default function SectionGallery() {
   return (
     <section className="w-full max-w-[1152px] mx-auto py-20 relative z-10">
-      <div className="bg-[rgba(255,255,255,0.3)] p-8 md:p-16 rounded-xl backdrop-blur-sm">
+      <div className="p-8 md:p-16">
         <SectionTitle title="Gallery" />
 
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6 mb-12">
