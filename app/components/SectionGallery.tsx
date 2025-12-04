@@ -9,40 +9,40 @@ const GALLERY_IMAGES = [
   {
     src: "/assets/images/gallery/sanpo.png",
     alt: "Walking",
-    // PC positions (右下に配置) - 重なりを避けるためサイズを少し小さくし、位置を調整
-    className: "md:right-[50px] md:bottom-[120px] md:rotate-[12deg]",
+    // PC positions (右下に配置) - 中央寄りに調整
+    className: "md:right-[100px] md:bottom-[150px] md:rotate-[12deg]",
     // Mobile positions (右下に配置)
-    mobileClassName: "right-[2%] bottom-[10%] rotate-12 w-[140px]",
+    mobileClassName: "right-[5%] bottom-[15%] rotate-12 w-[140px]",
     width: 280,
     height: 252,
   },
   {
     src: "/assets/images/gallery/busstop.png",
     alt: "Bus Stop",
-    // PC positions (左下に配置) - より外側へ
-    className: "md:left-[30px] md:bottom-[30px] md:-rotate-[5deg]",
+    // PC positions (左下に配置) - 中央寄りに調整
+    className: "md:left-[80px] md:bottom-[80px] md:-rotate-[5deg]",
     // Mobile positions (左下に配置)
-    mobileClassName: "left-[2%] bottom-[5%] -rotate-6 w-[160px]",
+    mobileClassName: "left-[5%] bottom-[10%] -rotate-6 w-[160px]",
     width: 280,
     height: 187,
   },
   {
     src: "/assets/images/gallery/ufo.png",
     alt: "UFO",
-    // PC positions (右上に配置) - タイトルと重ならないよう外側上へ
-    className: "md:right-[20px] md:top-[20px] md:rotate-[8deg]",
+    // PC positions (右上に配置) - 中央寄りに調整
+    className: "md:right-[80px] md:top-[60px] md:rotate-[8deg]",
     // Mobile positions (右上に配置)
-    mobileClassName: "right-[2%] top-[5%] rotate-12 w-[130px]",
+    mobileClassName: "right-[5%] top-[10%] rotate-12 w-[130px]",
     width: 260,
     height: 260,
   },
   {
     src: "/assets/images/gallery/moonday_2025.png",
     alt: "Moonday",
-    // PC positions (左上に配置) - タイトルと重ならないよう外側上へ
-    className: "md:left-[20px] md:top-[40px] md:-rotate-[10deg]",
+    // PC positions (左上に配置) - 中央寄りに調整
+    className: "md:left-[80px] md:top-[80px] md:-rotate-[10deg]",
     // Mobile positions (左上に配置)
-    mobileClassName: "left-[2%] top-[8%] -rotate-6 w-[140px]",
+    mobileClassName: "left-[5%] top-[15%] -rotate-6 w-[140px]",
     width: 260,
     height: 260,
   },

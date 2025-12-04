@@ -40,10 +40,10 @@ export default function Home() {
             <SectionGallery />
         </div>
 
-        {/* Section 4: Works & Footer - 濃いオレンジ (#ff8904) */}
+        {/* Section 4: Works & Footer - 柔らかい夕焼け色 (#ffb775) */}
         {/* 最後のセクションはstickyである必要はない（次に重なるものがないため） */}
         {/* 前のセクションの上に重なるように z-index を高くし、背景色をつける */}
-        <div className="relative min-h-screen w-full z-30 bg-[#ff8904] shadow-[0_-5px_20px_rgba(0,0,0,0.05)] snap-start flex flex-col">
+        <div className="relative min-h-screen w-full z-30 bg-[#ffb775] shadow-[0_-5px_20px_rgba(0,0,0,0.05)] snap-start flex flex-col">
             <div className="flex-grow flex flex-col justify-center pt-24">
               <SectionWorks />
             </div>
