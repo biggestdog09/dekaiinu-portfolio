@@ -10,13 +10,13 @@ const GALLERY_IMAGES = [
   {
     src: "/assets/images/gallery/sanpo.png",
     alt: "Walking",
-    // PC positions (右下に配置) - 中央寄りに調整
-    className: "md:right-[100px] md:bottom-[150px] md:rotate-[12deg]",
-    // Mobile positions (右下に配置)
-    mobileClassName: "right-[5%] bottom-[15%] rotate-12 w-[140px]",
+    // PC positions (右上に配置) - 見切れ防止のため下げる
+    className: "md:right-[80px] md:top-[150px] md:rotate-[12deg]",
+    // Mobile positions (右上に配置)
+    mobileClassName: "right-[5%] top-[15%] rotate-12 w-[140px]",
     width: 280,
     height: 252,
-    speed: -160, // スクロールで上に移動（速度強化）
+    speed: -160, // スクロールで上に移動
   },
   {
     src: "/assets/images/gallery/busstop.png",
@@ -32,13 +32,13 @@ const GALLERY_IMAGES = [
   {
     src: "/assets/images/gallery/ufo.png",
     alt: "UFO",
-    // PC positions (右上に配置) - 中央寄りに調整
-    className: "md:right-[80px] md:top-[60px] md:rotate-[8deg]",
-    // Mobile positions (右上に配置)
-    mobileClassName: "right-[5%] top-[10%] rotate-12 w-[130px]",
+    // PC positions (右下に配置) - 見切れ防止のため下げる
+    className: "md:right-[100px] md:bottom-[50px] md:rotate-[8deg]",
+    // Mobile positions (右下に配置)
+    mobileClassName: "right-[5%] bottom-[5%] rotate-12 w-[130px]",
     width: 260,
     height: 260,
-    speed: -240, // 速く上に移動（速度強化）
+    speed: -240, // 速く上に移動
   },
   {
     src: "/assets/images/gallery/moonday_2025.png",
@@ -129,7 +129,7 @@ export default function SectionGallery() {
   });
 
   return (
-    <section ref={containerRef} className="w-full max-w-[1152px] mx-auto py-20 relative z-10 min-h-[800px] flex flex-col items-center justify-center overflow-hidden md:overflow-visible">
+    <section ref={containerRef} className="w-full max-w-[1152px] mx-auto py-20 relative z-10 min-h-[800px] flex flex-col items-center justify-center overflow-hidden">
       {/* Title Centered */}
       <div className="relative z-20 mb-12">
         <SectionTitle title="Gallery" />

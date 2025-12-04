@@ -120,7 +120,7 @@ export default function SectionTopics() {
   });
 
   return (
-    <section ref={containerRef} className="w-full max-w-[1152px] mx-auto py-20 relative z-10 min-h-[600px] flex flex-col items-center justify-center overflow-hidden md:overflow-visible">
+    <section ref={containerRef} className="w-full max-w-[1152px] mx-auto py-20 relative z-10 min-h-[600px] flex flex-col items-center justify-center overflow-hidden">
       
       <div className="relative z-20 mb-8">
         <SectionTitle title="New Topics" />

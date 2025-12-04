@@ -126,7 +126,7 @@ export default function SectionWorks() {
   return (
     <section ref={containerRef} className="w-full max-w-[1152px] mx-auto py-20 relative z-10 flex flex-col">
       {/* Works Content Area */}
-      <div className="relative min-h-[600px] flex flex-col items-center justify-center overflow-hidden md:overflow-visible mb-20">
+      <div className="relative min-h-[600px] flex flex-col items-center justify-center overflow-hidden mb-20">
           <div className="relative z-20 mb-12">
             <SectionTitle title="Works" />
           </div>
