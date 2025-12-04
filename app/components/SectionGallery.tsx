@@ -3,7 +3,8 @@
 import Image from "next/image";
 import SectionTitle from "./ui/SectionTitle";
 import PixelButton from "./ui/PixelButton";
-import { motion } from "framer-motion";
+import { motion, useScroll, useTransform, MotionValue } from "framer-motion";
+import { useRef } from "react";
 
 const GALLERY_IMAGES = [
   {
@@ -15,6 +16,7 @@ const GALLERY_IMAGES = [
     mobileClassName: "right-[5%] bottom-[15%] rotate-12 w-[140px]",
     width: 280,
     height: 252,
+    speed: -160, // スクロールで上に移動（速度強化）
   },
   {
     src: "/assets/images/gallery/busstop.png",
@@ -25,6 +27,7 @@ const GALLERY_IMAGES = [
     mobileClassName: "left-[5%] bottom-[10%] -rotate-6 w-[160px]",
     width: 280,
     height: 187,
+    speed: 120, // スクロールで下に移動（速度強化）
   },
   {
     src: "/assets/images/gallery/ufo.png",
@@ -35,6 +38,7 @@ const GALLERY_IMAGES = [
     mobileClassName: "right-[5%] top-[10%] rotate-12 w-[130px]",
     width: 260,
     height: 260,
+    speed: -240, // 速く上に移動（速度強化）
   },
   {
     src: "/assets/images/gallery/moonday_2025.png",
@@ -45,12 +49,87 @@ const GALLERY_IMAGES = [
     mobileClassName: "left-[5%] top-[15%] -rotate-6 w-[140px]",
     width: 260,
     height: 260,
+    speed: 100, // ゆっくり下に移動（速度強化）
   },
 ];
 
-export default function SectionGallery() {
+// パララックス用コンポーネント
+const ParallaxSticker = ({ 
+  img, 
+  scrollYProgress 
+}: { 
+  img: typeof GALLERY_IMAGES[0], 
+  scrollYProgress: MotionValue<number> 
+}) => {
+  // スクロール量に応じたY座標の移動
+  const y = useTransform(scrollYProgress, [0, 1], [0, img.speed]);
+
   return (
-    <section className="w-full max-w-[1152px] mx-auto py-20 relative z-10 min-h-[800px] flex flex-col items-center justify-center overflow-hidden md:overflow-visible">
+    <div className="contents">
+      {/* PC View */}
+      <motion.div
+        style={{ y }}
+        className={`hidden md:block absolute drop-shadow-xl pointer-events-auto ${img.className}`}
+        initial={{ opacity: 0, scale: 0 }}
+        whileInView={{ opacity: 1, scale: 1 }}
+        viewport={{ once: true, amount: 0.3 }}
+        transition={{ 
+          type: "spring",
+          stiffness: 260,
+          damping: 20,
+        }}
+        whileHover={{ 
+          scale: 1.1,
+          transition: { type: "spring", stiffness: 400, damping: 10 }
+        }}
+      >
+        <Image
+          src={img.src}
+          alt={img.alt}
+          width={img.width}
+          height={img.height}
+          className="object-contain"
+        />
+      </motion.div>
+      
+      {/* Mobile View - モバイルでもパララックスを適用（控えめに） */}
+      <motion.div
+        style={{ y: useTransform(scrollYProgress, [0, 1], [0, img.speed * 0.5]) }}
+        className={`md:hidden absolute drop-shadow-lg pointer-events-auto ${img.mobileClassName}`}
+        initial={{ opacity: 0, scale: 0 }}
+        whileInView={{ opacity: 1, scale: 1 }}
+        viewport={{ once: true, amount: 0.3 }}
+        transition={{ 
+          type: "spring",
+          stiffness: 260,
+          damping: 20,
+        }}
+        whileHover={{ 
+          scale: 1.1,
+          transition: { type: "spring", stiffness: 400, damping: 10 }
+        }}
+      >
+         <Image
+           src={img.src}
+           alt={img.alt}
+           width={img.width * 0.6}
+           height={img.height * 0.6}
+           className="object-contain"
+         />
+      </motion.div>
+    </div>
+  );
+};
+
+export default function SectionGallery() {
+  const containerRef = useRef<HTMLElement>(null);
+  const { scrollYProgress } = useScroll({
+    target: containerRef,
+    offset: ["start end", "end start"]
+  });
+
+  return (
+    <section ref={containerRef} className="w-full max-w-[1152px] mx-auto py-20 relative z-10 min-h-[800px] flex flex-col items-center justify-center overflow-hidden md:overflow-visible">
       {/* Title Centered */}
       <div className="relative z-20 mb-12">
         <SectionTitle title="Gallery" />
@@ -58,62 +137,12 @@ export default function SectionGallery() {
 
       {/* Stickers Container */}
       <div className="absolute inset-0 w-full h-full pointer-events-none">
-        {/* PC View Loop */}
         {GALLERY_IMAGES.map((img, index) => (
-          <motion.div
-            key={`pc-${index}`}
-            className={`hidden md:block absolute drop-shadow-xl pointer-events-auto ${img.className}`}
-            initial={{ opacity: 0, scale: 0 }}
-            whileInView={{ opacity: 1, scale: 1 }}
-            viewport={{ once: true, amount: 0.3 }}
-            transition={{ 
-              type: "spring",
-              stiffness: 260,
-              damping: 20,
-              delay: index * 0.15
-            }}
-            whileHover={{ 
-              scale: 1.1,
-              transition: { type: "spring", stiffness: 400, damping: 10 }
-            }}
-          >
-            <Image
-              src={img.src}
-              alt={img.alt}
-              width={img.width}
-              height={img.height}
-              className="object-contain"
-            />
-          </motion.div>
-        ))}
-        
-        {/* Mobile View Loop */}
-        {GALLERY_IMAGES.map((img, index) => (
-           <motion.div
-             key={`mob-${index}`}
-             className={`md:hidden absolute drop-shadow-lg pointer-events-auto ${img.mobileClassName}`}
-             initial={{ opacity: 0, scale: 0 }}
-             whileInView={{ opacity: 1, scale: 1 }}
-             viewport={{ once: true, amount: 0.3 }}
-             transition={{ 
-               type: "spring",
-               stiffness: 260,
-               damping: 20,
-               delay: index * 0.15
-             }}
-             whileHover={{ 
-               scale: 1.1,
-               transition: { type: "spring", stiffness: 400, damping: 10 }
-             }}
-           >
-              <Image
-                src={img.src}
-                alt={img.alt}
-                width={img.width * 0.6} // Scale down for mobile
-                height={img.height * 0.6}
-                className="object-contain"
-              />
-           </motion.div>
+          <ParallaxSticker 
+            key={index} 
+            img={img} 
+            scrollYProgress={scrollYProgress} 
+          />
         ))}
       </div>
 

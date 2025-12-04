@@ -3,7 +3,8 @@
 import Image from "next/image";
 import SectionTitle from "./ui/SectionTitle";
 import PixelButton from "./ui/PixelButton";
-import { motion } from "framer-motion";
+import { motion, useScroll, useTransform, MotionValue } from "framer-motion";
+import { useRef } from "react";
 
 const WORK_IMAGES = [
   {
@@ -14,6 +15,7 @@ const WORK_IMAGES = [
     mobileClassName: "left-[-2%] top-[5%] -rotate-12 w-[120px]",
     width: 240,
     height: 160,
+    speed: 120, // 速度強化
   },
   {
     src: "/assets/images/works/inuverse.png",
@@ -23,6 +25,7 @@ const WORK_IMAGES = [
     mobileClassName: "right-[-8%] top-[30%] rotate-6 w-[180px]",
     width: 400,
     height: 266,
+    speed: -200, // 速度強化
   },
   {
     src: "/assets/images/works/matyupuriri.png",
@@ -32,6 +35,7 @@ const WORK_IMAGES = [
     mobileClassName: "left-[5%] bottom-[20%] rotate-6 w-[160px]",
     width: 300,
     height: 300,
+    speed: 80, // 速度強化
   },
   {
     src: "/assets/images/works/spark.png",
@@ -41,12 +45,86 @@ const WORK_IMAGES = [
     mobileClassName: "right-[5%] bottom-[15%] -rotate-12 w-[140px]",
     width: 200,
     height: 200,
+    speed: -150, // 速度強化
   },
 ];
 
-export default function SectionWorks() {
+// パララックス用コンポーネント
+const ParallaxWork = ({ 
+  img, 
+  scrollYProgress 
+}: { 
+  img: typeof WORK_IMAGES[0], 
+  scrollYProgress: MotionValue<number> 
+}) => {
+  const y = useTransform(scrollYProgress, [0, 1], [0, img.speed]);
+  const yMobile = useTransform(scrollYProgress, [0, 1], [0, img.speed * 0.5]);
+
   return (
-    <section className="w-full max-w-[1152px] mx-auto py-20 relative z-10 flex flex-col">
+    <div className="contents">
+      {/* PC */}
+      <motion.div 
+        style={{ y }}
+        className={`hidden md:block absolute drop-shadow-xl pointer-events-auto ${img.className}`}
+        initial={{ opacity: 0, scale: 0 }}
+        whileInView={{ opacity: 1, scale: 1 }}
+        viewport={{ once: true, amount: 0.3 }}
+        transition={{ 
+          type: "spring",
+          stiffness: 260,
+          damping: 20,
+        }}
+        whileHover={{ 
+          scale: 1.1,
+          transition: { type: "spring", stiffness: 400, damping: 10 }
+        }}
+      >
+        <Image
+          src={img.src}
+          alt={img.alt}
+          width={img.width}
+          height={img.height}
+          className="object-contain"
+        />
+      </motion.div>
+       {/* Mobile */}
+      <motion.div 
+        style={{ y: yMobile }}
+        className={`md:hidden absolute drop-shadow-md pointer-events-auto ${img.mobileClassName}`}
+        initial={{ opacity: 0, scale: 0 }}
+        whileInView={{ opacity: 1, scale: 1 }}
+        viewport={{ once: true, amount: 0.3 }}
+        transition={{ 
+          type: "spring",
+          stiffness: 260,
+          damping: 20,
+        }}
+        whileHover={{ 
+          scale: 1.1,
+          transition: { type: "spring", stiffness: 400, damping: 10 }
+        }}
+      >
+        <Image
+          src={img.src}
+          alt={img.alt}
+          width={img.width * 0.7}
+          height={img.height * 0.7}
+          className="object-contain"
+        />
+      </motion.div>
+    </div>
+  );
+};
+
+export default function SectionWorks() {
+  const containerRef = useRef<HTMLElement>(null);
+  const { scrollYProgress } = useScroll({
+    target: containerRef,
+    offset: ["start end", "end start"]
+  });
+
+  return (
+    <section ref={containerRef} className="w-full max-w-[1152px] mx-auto py-20 relative z-10 flex flex-col">
       {/* Works Content Area */}
       <div className="relative min-h-[600px] flex flex-col items-center justify-center overflow-hidden md:overflow-visible mb-20">
           <div className="relative z-20 mb-12">
@@ -55,58 +133,11 @@ export default function SectionWorks() {
 
           <div className="absolute inset-0 w-full h-full pointer-events-none">
             {WORK_IMAGES.map((img, index) => (
-              <div key={index} className="contents">
-                {/* PC */}
-                <motion.div 
-                  className={`hidden md:block absolute drop-shadow-xl pointer-events-auto ${img.className}`}
-                  initial={{ opacity: 0, scale: 0 }}
-                  whileInView={{ opacity: 1, scale: 1 }}
-                  viewport={{ once: true, amount: 0.3 }}
-                  transition={{ 
-                    type: "spring",
-                    stiffness: 260,
-                    damping: 20,
-                    delay: index * 0.15
-                  }}
-                  whileHover={{ 
-                    scale: 1.1,
-                    transition: { type: "spring", stiffness: 400, damping: 10 }
-                  }}
-                >
-                  <Image
-                    src={img.src}
-                    alt={img.alt}
-                    width={img.width}
-                    height={img.height}
-                    className="object-contain"
-                  />
-                </motion.div>
-                 {/* Mobile */}
-                <motion.div 
-                  className={`md:hidden absolute drop-shadow-md pointer-events-auto ${img.mobileClassName}`}
-                  initial={{ opacity: 0, scale: 0 }}
-                  whileInView={{ opacity: 1, scale: 1 }}
-                  viewport={{ once: true, amount: 0.3 }}
-                  transition={{ 
-                    type: "spring",
-                    stiffness: 260,
-                    damping: 20,
-                    delay: index * 0.15
-                  }}
-                  whileHover={{ 
-                    scale: 1.1,
-                    transition: { type: "spring", stiffness: 400, damping: 10 }
-                  }}
-                >
-                  <Image
-                    src={img.src}
-                    alt={img.alt}
-                    width={img.width * 0.7}
-                    height={img.height * 0.7}
-                    className="object-contain"
-                  />
-                </motion.div>
-              </div>
+              <ParallaxWork 
+                key={index} 
+                img={img} 
+                scrollYProgress={scrollYProgress} 
+              />
             ))}
           </div>
 
