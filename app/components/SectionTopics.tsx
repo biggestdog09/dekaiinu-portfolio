@@ -1,6 +1,9 @@
+"use client";
+
 import Image from "next/image";
 import SectionTitle from "./ui/SectionTitle";
 import PixelButton from "./ui/PixelButton";
+import { motion } from "framer-motion";
 
 // Topics用の装飾画像（ステッカー）
 const TOPIC_DECORATIONS = [
@@ -29,8 +32,8 @@ const TOPIC_DECORATIONS = [
     height: 100,
   },
   {
-    src: "/assets/images/logo_dekaiinu.png",
-    alt: "Logo",
+    src: "/assets/images/gallery/pallet.png",
+    alt: "Pallet",
     className: "md:right-[200px] md:bottom-[150px] md:rotate-[-10deg]",
     mobileClassName: "right-[10%] bottom-[25%] -rotate-12 w-[100px]",
     width: 150,
@@ -50,7 +53,22 @@ export default function SectionTopics() {
         {TOPIC_DECORATIONS.map((item, index) => (
           <div key={index} className="contents">
              {/* PC View */}
-            <div className={`hidden md:block absolute transition-transform hover:scale-110 duration-300 drop-shadow-lg ${item.className}`}>
+            <motion.div 
+              className={`hidden md:block absolute drop-shadow-lg pointer-events-auto ${item.className}`}
+              initial={{ opacity: 0, scale: 0 }}
+              whileInView={{ opacity: 1, scale: 1 }}
+              viewport={{ once: true, amount: 0.3 }}
+              transition={{ 
+                type: "spring",
+                stiffness: 260,
+                damping: 20,
+                delay: index * 0.15
+              }}
+              whileHover={{ 
+                scale: 1.1,
+                transition: { type: "spring", stiffness: 400, damping: 10 }
+              }}
+            >
                <Image
                  src={item.src}
                  alt={item.alt}
@@ -58,9 +76,24 @@ export default function SectionTopics() {
                  height={item.height}
                  className="object-contain"
                />
-            </div>
+            </motion.div>
             {/* Mobile View */}
-            <div className={`md:hidden absolute transition-transform hover:scale-110 duration-300 drop-shadow-md ${item.mobileClassName}`}>
+            <motion.div 
+              className={`md:hidden absolute drop-shadow-md pointer-events-auto ${item.mobileClassName}`}
+              initial={{ opacity: 0, scale: 0 }}
+              whileInView={{ opacity: 1, scale: 1 }}
+              viewport={{ once: true, amount: 0.3 }}
+              transition={{ 
+                type: "spring",
+                stiffness: 260,
+                damping: 20,
+                delay: index * 0.15
+              }}
+              whileHover={{ 
+                scale: 1.1,
+                transition: { type: "spring", stiffness: 400, damping: 10 }
+              }}
+            >
                <Image
                  src={item.src}
                  alt={item.alt}
@@ -68,7 +101,7 @@ export default function SectionTopics() {
                  height={item.height * 0.7}
                  className="object-contain"
                />
-            </div>
+            </motion.div>
           </div>
         ))}
       </div>

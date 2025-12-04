@@ -1,6 +1,9 @@
+"use client";
+
 import Image from "next/image";
 import SectionTitle from "./ui/SectionTitle";
 import PixelButton from "./ui/PixelButton";
+import { motion } from "framer-motion";
 
 const WORK_IMAGES = [
   {
@@ -54,7 +57,22 @@ export default function SectionWorks() {
             {WORK_IMAGES.map((img, index) => (
               <div key={index} className="contents">
                 {/* PC */}
-                <div className={`hidden md:block absolute transition-transform hover:scale-105 duration-300 drop-shadow-xl ${img.className}`}>
+                <motion.div 
+                  className={`hidden md:block absolute drop-shadow-xl pointer-events-auto ${img.className}`}
+                  initial={{ opacity: 0, scale: 0 }}
+                  whileInView={{ opacity: 1, scale: 1 }}
+                  viewport={{ once: true, amount: 0.3 }}
+                  transition={{ 
+                    type: "spring",
+                    stiffness: 260,
+                    damping: 20,
+                    delay: index * 0.15
+                  }}
+                  whileHover={{ 
+                    scale: 1.1,
+                    transition: { type: "spring", stiffness: 400, damping: 10 }
+                  }}
+                >
                   <Image
                     src={img.src}
                     alt={img.alt}
@@ -62,9 +80,24 @@ export default function SectionWorks() {
                     height={img.height}
                     className="object-contain"
                   />
-                </div>
+                </motion.div>
                  {/* Mobile */}
-                <div className={`md:hidden absolute transition-transform hover:scale-105 duration-300 drop-shadow-md ${img.mobileClassName}`}>
+                <motion.div 
+                  className={`md:hidden absolute drop-shadow-md pointer-events-auto ${img.mobileClassName}`}
+                  initial={{ opacity: 0, scale: 0 }}
+                  whileInView={{ opacity: 1, scale: 1 }}
+                  viewport={{ once: true, amount: 0.3 }}
+                  transition={{ 
+                    type: "spring",
+                    stiffness: 260,
+                    damping: 20,
+                    delay: index * 0.15
+                  }}
+                  whileHover={{ 
+                    scale: 1.1,
+                    transition: { type: "spring", stiffness: 400, damping: 10 }
+                  }}
+                >
                   <Image
                     src={img.src}
                     alt={img.alt}
@@ -72,7 +105,7 @@ export default function SectionWorks() {
                     height={img.height * 0.7}
                     className="object-contain"
                   />
-                </div>
+                </motion.div>
               </div>
             ))}
           </div>

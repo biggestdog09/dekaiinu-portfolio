@@ -1,41 +1,50 @@
+"use client";
+
 import Image from "next/image";
 import SectionTitle from "./ui/SectionTitle";
 import PixelButton from "./ui/PixelButton";
+import { motion } from "framer-motion";
 
 const GALLERY_IMAGES = [
   {
     src: "/assets/images/gallery/sanpo.png",
     alt: "Walking",
-    // PC positions (absolute within 1152px container)
-    className: "md:left-[600px] md:top-[400px] md:rotate-6",
-    // Mobile positions (absolute within viewport/container)
-    mobileClassName: "left-[55%] top-[60%] rotate-6 w-[180px]",
-    width: 335,
-    height: 301,
+    // PC positions (右下に配置) - 重なりを避けるためサイズを少し小さくし、位置を調整
+    className: "md:right-[50px] md:bottom-[120px] md:rotate-[12deg]",
+    // Mobile positions (右下に配置)
+    mobileClassName: "right-[2%] bottom-[10%] rotate-12 w-[140px]",
+    width: 280,
+    height: 252,
   },
   {
     src: "/assets/images/gallery/busstop.png",
     alt: "Bus Stop",
-    className: "md:left-[100px] md:top-[500px] md:-rotate-3",
-    mobileClassName: "left-[5%] top-[70%] -rotate-3 w-[200px]",
-    width: 300,
-    height: 200,
+    // PC positions (左下に配置) - より外側へ
+    className: "md:left-[30px] md:bottom-[30px] md:-rotate-[5deg]",
+    // Mobile positions (左下に配置)
+    mobileClassName: "left-[2%] bottom-[5%] -rotate-6 w-[160px]",
+    width: 280,
+    height: 187,
   },
   {
     src: "/assets/images/gallery/ufo.png",
     alt: "UFO",
-    className: "md:left-[600px] md:top-[-50px] md:rotate-12",
-    mobileClassName: "left-[60%] top-[10%] rotate-12 w-[160px]",
-    width: 337,
-    height: 337,
+    // PC positions (右上に配置) - タイトルと重ならないよう外側上へ
+    className: "md:right-[20px] md:top-[20px] md:rotate-[8deg]",
+    // Mobile positions (右上に配置)
+    mobileClassName: "right-[2%] top-[5%] rotate-12 w-[130px]",
+    width: 260,
+    height: 260,
   },
   {
     src: "/assets/images/gallery/moonday_2025.png",
     alt: "Moonday",
-    className: "md:left-[150px] md:top-[50px] md:-rotate-6",
-    mobileClassName: "left-[10%] top-[15%] -rotate-6 w-[170px]",
-    width: 329,
-    height: 329,
+    // PC positions (左上に配置) - タイトルと重ならないよう外側上へ
+    className: "md:left-[20px] md:top-[40px] md:-rotate-[10deg]",
+    // Mobile positions (左上に配置)
+    mobileClassName: "left-[2%] top-[8%] -rotate-6 w-[140px]",
+    width: 260,
+    height: 260,
   },
 ];
 
@@ -51,9 +60,22 @@ export default function SectionGallery() {
       <div className="absolute inset-0 w-full h-full pointer-events-none">
         {/* PC View Loop */}
         {GALLERY_IMAGES.map((img, index) => (
-          <div
+          <motion.div
             key={`pc-${index}`}
-            className={`hidden md:block absolute transition-transform hover:scale-105 hover:z-30 duration-300 ease-out drop-shadow-xl ${img.className}`}
+            className={`hidden md:block absolute drop-shadow-xl pointer-events-auto ${img.className}`}
+            initial={{ opacity: 0, scale: 0 }}
+            whileInView={{ opacity: 1, scale: 1 }}
+            viewport={{ once: true, amount: 0.3 }}
+            transition={{ 
+              type: "spring",
+              stiffness: 260,
+              damping: 20,
+              delay: index * 0.15
+            }}
+            whileHover={{ 
+              scale: 1.1,
+              transition: { type: "spring", stiffness: 400, damping: 10 }
+            }}
           >
             <Image
               src={img.src}
@@ -62,14 +84,27 @@ export default function SectionGallery() {
               height={img.height}
               className="object-contain"
             />
-          </div>
+          </motion.div>
         ))}
         
         {/* Mobile View Loop */}
         {GALLERY_IMAGES.map((img, index) => (
-           <div
+           <motion.div
              key={`mob-${index}`}
-             className={`md:hidden absolute drop-shadow-lg transition-transform hover:scale-105 hover:z-30 ${img.mobileClassName}`}
+             className={`md:hidden absolute drop-shadow-lg pointer-events-auto ${img.mobileClassName}`}
+             initial={{ opacity: 0, scale: 0 }}
+             whileInView={{ opacity: 1, scale: 1 }}
+             viewport={{ once: true, amount: 0.3 }}
+             transition={{ 
+               type: "spring",
+               stiffness: 260,
+               damping: 20,
+               delay: index * 0.15
+             }}
+             whileHover={{ 
+               scale: 1.1,
+               transition: { type: "spring", stiffness: 400, damping: 10 }
+             }}
            >
               <Image
                 src={img.src}
@@ -78,7 +113,7 @@ export default function SectionGallery() {
                 height={img.height * 0.6}
                 className="object-contain"
               />
-           </div>
+           </motion.div>
         ))}
       </div>
 
